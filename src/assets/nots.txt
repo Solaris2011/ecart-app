@@ -1,0 +1,1180 @@
+STATE : 
+	14. video ya geldik
+
+
+Sozluk :
+=============================
+	to  stand for    : Anlamina gelmek
+	onwards      		: ikeriye dogru 
+	Standalone				: bagimsiz
+	boilerplate				: basma kalip
+	asset					: varlik
+	bootstrap				: on yukleme
+	to bundle 				  paketlemek
+	
+Component Generete Etmek :
+========================================
+	[ng generate component hero-detail]
+	
+TIPS  :
+=================================================	
+
+	- You can use the following command to generate a project that has app.module.ts and app-routing.module.ts:
+
+		[ng new my-app --no-standalone --routing --ssr=false]
+
+	
+	-VSCode terminalden Calsitirmak :	
+	-----------------------------------	
+		Consol dan Projenin aldugu foldere gelip [code .]	 yazip entere basarsak proje direk olarak VsCode da aciliyor
+	
+	
+	
+	- 
+	----------------------------------------
+	
+		From Angular v17 onwards, Standalone is now the new default for the CLI.
+		So when you create a new project, you won't have any modules in it if you don't specify anything.
+		However, it is still possible to create a module-based app by using the --no-standalone flag :
+
+	
+		[ng new testpro --no-standalone]
+
+
+
+	
+	- Angular CLI Versiyonunun Kontrol Etmek Icin :
+	--------------------------------------------------
+		 - terminalden :
+				/> ng v    
+			calistiriyoruz 
+	
+
+	
+	
+	- ng Ne demek :
+	--------------------------
+		- The prefix ng stands for "Angular;" all of the built-in directives that ship with Angular use that prefix
+
+
+
+Introduction   : 
+=========================
+	- Angular is not programming language
+	- angular is a framework
+	- angular is used for single page application (SPA)
+	
+	- Angular projesi develop etmek icin :
+	-----------------------------------------
+		1) Install node.js
+		2) install angular CLI
+	
+	- What is a framwork : 
+	------------------------
+		A framework is a collection of pre-defined class and methods which provides APIs for performing different operation 
+		when used in an application
+		
+	
+		
+	- Node.js Nedir  :
+	------------------------
+	Browser disinda javascript kodunu calistirmamiza yarar
+	Node.js is a runtime envirment for executing javascript outside of the browser enviroment
+	Node provide some tool that we need t build angular project
+		Ornegin : we are going to install some packages from npm
+		in order to the that we are going to install node.js to local development machines
+
+	- Node.js i kendi sitesine giderek kuruyoruz.
+	
+	- Node un kurulu olup opmadigini command promp tan 
+		/>node --version 
+		VEYA
+		/>node -v
+	komutunu yazarak anlayabilirz...
+	
+	- Angular CLI :
+	-------------------
+	- Command Line Iterface  whic we use to create new angular project or generate some boiler plate code as well as create deployable packages
+	
+	- to install angular cli 
+		[ /> npm install -global @angular/cli@latest]
+		VEYA
+		[ /> npm install -g]  
+	  (Eger -g veya -global yazmazsak soz konusu install edilen package yanlizca instal edilen folder a kurulur.)
+	  ( 'latest' ifadesi versiyonu ifade eder . )
+	  
+	  Angular CLi basarili bir sekilde kurulduktan sonra 
+		[ />ng version]
+	  komutunu calistirarak kurulu olan basarili bir sekilde kurmus oldugunuz "Angular CLi" in versiyonunu goruntuleyebilirz
+	  Ayrica kurmus oldugumuz diger angular packagelerinide goruntulemis oluruz...
+	  
+	- Creating Angular Project
+	---------------------------------
+		- Oncelikle Angular prjemizi olusutracagimiz bir folder olusturuyoruz
+		
+		- Angular projelerini depolamak icin create ettigimiz directory ye giderek asagidaki komutu calistiriyoruz
+			[/>ng new project-name]  Ornegin==> [/>ng new first_project]
+			
+		- Daha sonra projemizi olusturdugumuz foldere gidiyoruz.
+			[/first_project>ng serve]
+			
+			Bu komut Angular projesini compile edecek
+			it will generate bundles for javascript and css files
+			then open [Angular-live-development-server] on which we can run this project
+			
+			
+
+
+
+Angular Dependency Veya Package Leri Indirme Sitesi : 
+===========================================================
+
+	- https://www.npmjs.com/
+			
+			
+			
+			
+			
+================================================
+
+
+	- [node_modules] Folder :
+	-------------------------------
+	
+		- Bu folder icerisinde npm ile indirdigimiz 3.parti librarly ler bulunmaktadir.
+		- Bu folder saf olarak development amaclidir ve bu folder production servere deploy edilmez
+		- Git Repoya push edildiginde node_modules folder push olmaz
+		- Git Repo dan check-out ettigimiz angular projesi icerisinde node_modules folder bulunmaz.Bu durumda Angular projesi calismayacaktir
+			Cunku projenin node_modules folderina bir cok packageye dependency leri bulunmaktadir. Peki bu durumda ne yapmali..
+			Bu durumda terminal acilir ve asagidaki komut calistirilir...
+				[/>npm install]
+			Bu komutun calistirilmasiyla prjemizde eksik olan tum dependend packageler yeniden node_modules folder create edilerek icine atilir.
+			
+			
+	- [package.json] File :
+	----------------------------
+		- Hatirlarsaniz projemizdeki node_modules folderini silmistik ve daha sonra ;
+			[npm install] 
+		  komutu ile projemize ait tum dependcy ler, yeniden olusturulan node_modules folderinin icinde yeniden olusturulmustu.
+		  Peki projemizin hangi dependency lere veya packagelere ihtiyaci oldugunu nereden biliyor.
+		  Iste tam burada devreya "package.json" file giriyor.
+		
+		-NOTE : node_modules folder silinip daha sonra [npm install] dedkten sonra node_modules folder yeniden olusturuluor.
+				Ancak bazi file larda ozellikle component file larinda hatalar oluscabilir.
+				Bunun icin VsCode u bir restart etmek gerekebilir
+				
+				
+		- "npm install" comutunu invoke ettigimizde ...
+		  "package.json" icerisindeki 
+			1- dependencies
+			2- devDependencies
+		  brach lerine bakar ve node_modules icerisinde varsa son versiyonu, soz konusu packageleri son versiyonlari ile gunceller
+		  yok ise download ederek node_modules folderinin icerisine ekler.
+		  
+	
+	- [.editorconfig] File  :
+	-----------------------------------
+	
+		- Used for setup the team enviroment.
+		- Many developers may work on a single project and each developer may follow different codding standarts to declare variables, classes, style, size of each charecter etc.
+		  in the end we need the merge the of the each developer produce the final product and that time it may produce the some error messy code each developer  is having  
+			different coding standarts .
+			Now in order to solve this problem this edit config file is used where standart rules is defined which needs tm be follewed by the devolopers in the team 
+			And moreover developer not have acces to this file. maneger or team lead who defines the rules can only have access to this file
+			and in thisfile you can see all those rules
+			You can defien your own rules, coding standart as well.
+			it is the responsibility who the team lead define to this rules.
+			
+			
+	- [.gitignore] File    :  ***
+	-----------------------------------
+	
+		- Let say your team use "Git" as the code repo.
+		when you are checking code in th code repo you may not want to check in all the files and folders in the git repo 
+		in this file you can specify the files and folder which you want to exclude from your git repository.
+		
+		If you have this folder in your angular project 
+		Asagidaki file ve folderler gir repo dan check in yapilmayacaktir.
+		
+		
+			# Compiled output
+			/dist
+			/tmp
+			/out-tsc
+			/bazel-out
+
+			# Node
+			/node_modules
+			npm-debug.log
+			yarn-error.log
+			
+		- Mesela Angular projemize "Temp" diye bir folder olusturalim . Bu folderin Git Repo dan check in olmamasi icin 
+		  '.gitignore' file imiza bu folderi ekliyoruz . Asagidaki gibi...
+		  
+
+			# Compiled output
+			/dist
+			/tmp
+			/out-tsc
+			/bazel-out
+			/Temp       # buraya ekledik <><><><><><><><
+
+			# Node
+			/node_modules
+			npm-debug.log
+			yarn-error.log		  
+			
+			
+	- [angular.json File] :
+	-----------------------------------
+		- is one of the most important files and it contains all the config of your angular project.
+		
+		
+		
+						{
+				  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+				  "version": 1,
+				  "newProjectRoot": "projects",
+				  "projects": {   --------------------------------------> >>>> project releted configration
+					"first_angular_project": {   -------------------------->>>>>>>  projemizin ismi
+					  "projectType": "application",   ------------------------->>>>>>>>>  proje type is an application 
+					  "schematics": {},
+					  "root": "",
+					  "sourceRoot": "src",
+					  "prefix": "app",
+					  "architect": {
+						"build": {
+						  "builder": "@angular-devkit/build-angular:application",
+						  "options": {
+							"outputPath": "dist/first_angular_project",
+							"index": "src/index.html",     ----------->>>>> angular ilk kez ayaga kalkiginda hangi file load olmalidir.
+							"browser": "src/main.ts",  ---------->>>>>> what is the main entry poinf of the angular application 
+							"polyfills": [
+							  "zone.js"
+							],
+							"tsConfig": "tsconfig.app.json",
+							"assets": [
+							  "src/favicon.ico",
+							  "src/assets"
+							],
+							"styles": [
+							  "src/styles.css"   ---------------------->>>>> style dosyasi ve yeri , nasil bir stylesheet kullandigimiz bilgisi
+							],
+							"scripts": []    --------------------->>>>>>>>>>>>>  Kullanmak istedigimiz scriptler
+						  },
+						  "configurations": {
+							"production": {
+							  "budgets": [
+								{
+								  "type": "initial",
+								  "maximumWarning": "500kb",
+								  "maximumError": "1mb"
+								},
+								{
+								  "type": "anyComponentStyle",
+								  "maximumWarning": "2kb",
+								  "maximumError": "4kb"
+								}
+							  ],
+							  "outputHashing": "all"
+							},
+							"development": {
+							  "optimization": false,
+							  "extractLicenses": false,
+							  "sourceMap": true
+							}
+						  },
+						  "defaultConfiguration": "production"
+						},
+						"serve": {
+						  "builder": "@angular-devkit/build-angular:dev-server",
+						  "configurations": {
+							"production": {
+							  "buildTarget": "first_angular_project:build:production"
+							},
+							"development": {
+							  "buildTarget": "first_angular_project:build:development"
+							}
+						  },
+						  "defaultConfiguration": "development"
+						},
+						"extract-i18n": {
+						  "builder": "@angular-devkit/build-angular:extract-i18n",
+						  "options": {
+							"buildTarget": "first_angular_project:build"
+						  }
+						},
+						"test": {
+						  "builder": "@angular-devkit/build-angular:karma",
+						  "options": {
+							"polyfills": [
+							  "zone.js",
+							  "zone.js/testing"
+							],
+							"tsConfig": "tsconfig.spec.json",
+							"assets": [
+							  "src/favicon.ico",
+							  "src/assets"
+							],
+							"styles": [
+							  "src/styles.css"
+							],
+							"scripts": []  
+						  }
+						}
+					  }
+					}
+				  }
+				}
+				
+				
+	- [package-lock.json] File   :  (anlasilmadi)
+	------------------------------------------------------
+	
+		records the exact version of the installed deendency including sub dependencies and their versions 
+		purpose of package-lock.json file that it insures same dependencies l installed consistently cross ever different enviroment
+		forexample we might be deploying our angular application development environment, production environment, integration environment
+		so all these environments the same version all the dependencies get installed this job is taken care by "package-lock.json" file.
+		
+		
+		"package.json": Bu dosya bir tür manifest dosyasıdır. Projenin ismini, versiyonunu, manuel scriptleri ve projeye dahil edilen bütün paketlerin listesini 
+		(versiyonlarıyla birlikte) içerir. 
+		"package-lock.json" dosyası ise her paketin birebir sürümlendirilmiş bağımlılık ağacını tutar.
+		
+		Mesela asagida "package-lock.json" dosyasindan alinmis bir kesit veya branch var...
+		Burada node_modules folderi icerisindeki @babel  package sinin icerisndeki preset-env packagesinin dependency lerine ait 
+		bilgiler bulunmaktadir.
+		
+		
+		"node_modules/@babel/preset-env": {
+			  "version": "7.24.0",
+			  "resolved": "https://registry.npmjs.org/@babel/preset-env/-/preset-env-7.24.0.tgz",
+			  "integrity": "sha512-ZxPEzV9IgvGn73iK0E6VB9/95Nd7aMFpbE0l8KQFDG70cOV9IxRP7Y2FUPmlK0v6ImlLqYX50iuZ3ZTVhOF2lA==",
+			  "dev": true,
+			  "dependencies": {
+				"@babel/compat-data": "^7.23.5",
+				"@babel/helper-compilation-targets": "^7.23.6",
+				"@babel/helper-plugin-utils": "^7.24.0",
+				"@babel/helper-validator-option": "^7.23.5",
+				"@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression": "^7.23.3",
+				"@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining": "^7.23.3",
+				"@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly": "^7.23.7",
+				"@babel/plugin-proposal-private-property-in-object": "7.21.0-placeholder-for-preset-env.2",
+				"@babel/plugin-syntax-async-generators": "^7.8.4",
+				"@babel/plugin-syntax-class-properties": "^7.12.13",
+				"@babel/plugin-syntax-class-static-block": "^7.14.5",
+				"@babel/plugin-syntax-dynamic-import": "^7.8.3",
+				"@babel/plugin-syntax-export-namespace-from": "^7.8.3",
+				"@babel/plugin-syntax-import-assertions": "^7.23.3",
+				"@babel/plugin-syntax-import-attributes": "^7.23.3",
+				"@babel/plugin-syntax-import-meta": "^7.10.4",
+				"@babel/plugin-syntax-json-strings": "^7.8.3",
+				"@babel/plugin-syntax-logical-assignment-operators": "^7.10.4",
+				"@babel/plugin-syntax-nullish-coalescing-operator": "^7.8.3",
+				"@babel/plugin-syntax-numeric-separator": "^7.10.4",
+				"@babel/plugin-syntax-object-rest-spread": "^7.8.3",
+				"@babel/plugin-syntax-optional-catch-binding": "^7.8.3",
+				"@babel/plugin-syntax-optional-chaining": "^7.8.3",
+				"@babel/plugin-syntax-private-property-in-object": "^7.14.5",
+				"@babel/plugin-syntax-top-level-await": "^7.14.5",
+				"@babel/plugin-syntax-unicode-sets-regex": "^7.18.6",
+				"@babel/plugin-transform-arrow-functions": "^7.23.3",
+				"@babel/plugin-transform-async-generator-functions": "^7.23.9",
+				"@babel/plugin-transform-async-to-generator": "^7.23.3",
+				"@babel/plugin-transform-block-scoped-functions": "^7.23.3",
+				"@babel/plugin-transform-block-scoping": "^7.23.4",
+				"@babel/plugin-transform-class-properties": "^7.23.3",
+				"@babel/plugin-transform-class-static-block": "^7.23.4",
+				"@babel/plugin-transform-classes": "^7.23.8",
+				"@babel/plugin-transform-computed-properties": "^7.23.3",
+				"@babel/plugin-transform-destructuring": "^7.23.3",
+				"@babel/plugin-transform-dotall-regex": "^7.23.3",
+				"@babel/plugin-transform-duplicate-keys": "^7.23.3",
+				"@babel/plugin-transform-dynamic-import": "^7.23.4",
+				"@babel/plugin-transform-exponentiation-operator": "^7.23.3",
+				"@babel/plugin-transform-export-namespace-from": "^7.23.4",
+				"@babel/plugin-transform-for-of": "^7.23.6",
+				"@babel/plugin-transform-function-name": "^7.23.3",
+				"@babel/plugin-transform-json-strings": "^7.23.4",
+				"@babel/plugin-transform-literals": "^7.23.3",
+				"@babel/plugin-transform-logical-assignment-operators": "^7.23.4",
+				"@babel/plugin-transform-member-expression-literals": "^7.23.3",
+				"@babel/plugin-transform-modules-amd": "^7.23.3",
+				"@babel/plugin-transform-modules-commonjs": "^7.23.3",
+				"@babel/plugin-transform-modules-systemjs": "^7.23.9",
+				"@babel/plugin-transform-modules-umd": "^7.23.3",
+				"@babel/plugin-transform-named-capturing-groups-regex": "^7.22.5",
+				"@babel/plugin-transform-new-target": "^7.23.3",
+				"@babel/plugin-transform-nullish-coalescing-operator": "^7.23.4",
+				"@babel/plugin-transform-numeric-separator": "^7.23.4",
+				"@babel/plugin-transform-object-rest-spread": "^7.24.0",
+				"@babel/plugin-transform-object-super": "^7.23.3",
+				"@babel/plugin-transform-optional-catch-binding": "^7.23.4",
+				"@babel/plugin-transform-optional-chaining": "^7.23.4",
+				"@babel/plugin-transform-parameters": "^7.23.3",
+				"@babel/plugin-transform-private-methods": "^7.23.3",
+				"@babel/plugin-transform-private-property-in-object": "^7.23.4",
+				"@babel/plugin-transform-property-literals": "^7.23.3",
+				"@babel/plugin-transform-regenerator": "^7.23.3",
+				"@babel/plugin-transform-reserved-words": "^7.23.3",
+				"@babel/plugin-transform-shorthand-properties": "^7.23.3",
+				"@babel/plugin-transform-spread": "^7.23.3",
+				"@babel/plugin-transform-sticky-regex": "^7.23.3",
+				"@babel/plugin-transform-template-literals": "^7.23.3",
+				"@babel/plugin-transform-typeof-symbol": "^7.23.3",
+				"@babel/plugin-transform-unicode-escapes": "^7.23.3",
+				"@babel/plugin-transform-unicode-property-regex": "^7.23.3",
+				"@babel/plugin-transform-unicode-regex": "^7.23.3",
+				"@babel/plugin-transform-unicode-sets-regex": "^7.23.3",
+				"@babel/preset-modules": "0.1.6-no-external-plugins",
+				"babel-plugin-polyfill-corejs2": "^0.4.8",
+				"babel-plugin-polyfill-corejs3": "^0.9.0",
+				"babel-plugin-polyfill-regenerator": "^0.5.5",
+				"core-js-compat": "^3.31.0",
+				"semver": "^6.3.1"
+			  },
+			  "engines": {
+				"node": ">=6.9.0"
+			  },
+			  "peerDependencies": {
+				"@babel/core": "^7.0.0-0"
+			  }
+			},
+			
+			
+	- [tsconfig.json] File   :
+	===============================================
+	
+		Contains bunch of setting of typescript compiler.
+		And typescript compiler look at this settings, and base of this settings compile .TS files.
+		
+		
+	- [src] Folder   :
+	-----------------------------------
+	
+		We put all over application source code.
+		Every component, service class, modules everything we need to create angular application in src folder
+		
+		When ever we create angular project by default angular framework creates alotof files and folders in "src" folder..
+
+	- [app] Foder   :
+	-----------------------------------
+	
+		This is the application folder.
+		when ever you want to create any component, service or module need to create whitin this app folder.
+		Default olarak "app" folder icerisinde "app.component.ts" bulunur...
+		Ayrica default olarak projemiz icerisinde "app.module.ts" file bulunur...
+		
+		
+	- [assets] Folder :
+	-----------------------------------
+	
+		- We store all our static assets. Such as images, icons, txt files etc.
+		- What ever we store in assets folder that will be public. It can be accessed.
+		- Projemizi ayagi kaldirdiktan sonra bu folder icerisindeki asset lerimize browserden direk ulasabiliriz.
+		  Asagidaki gibi
+				http://localhost:4200/assets/planet2.jpeg
+				
+			Bu assets folder icerisindeki jpeg file browserden yukaridaki url ile direk olarak sorunsuz bir 
+			sekilde goruntulenebilir.
+			
+			
+	- [favicon.ico] File   :
+	-----------------------------------
+	
+		- Bu icon her ne ise browser sekmesinin sol ust kosesinde ilgili web page acildiginda appear olur.
+		  Goruntulenir.
+		  
+		  
+		  
+		  
+	- [index.html] File   :
+	-----------------------------------
+	
+		- Main html file, rendered by the browser and angular app runs
+		
+		
+				<!doctype html>
+				<html lang="en">
+				<head>
+				  <meta charset="utf-8">
+				  <title>FirstAngularProject</title>
+				  <base href="/">
+				  <meta name="viewport" content="width=device-width, initial-scale=1">
+				  <link rel="icon" type="image/x-icon" href="favicon.ico">
+				</head>
+				<body>
+				  <app-root-slm></app-root-slm>
+				</body>
+				</html>
+				
+		Yukarida index.html file gorunuyor. Ama dikkat ederseniz herhangi bu html file icerisinde herhangi bir 
+					-> referenceses
+					-> stylesheet
+					-> javascript 
+			files bulunmuyor...
+			Because all the dependencies will be injected to this "index.html" file during the build process by angular CLI.
+			
+			
+			
+	- [main.ts] File   (deprecatted):
+	-----------------------------------
+	
+		starting point of angular application.
+		Bir cok programda javada oldugu gibi main method vardir. 
+		Bu file bir application icin starting point tir.
+		same concept is for angular also...
+		We are bootstraping(on yukleme) app module...
+		When we run angular application it is going to execute main.ts first and their it will load "AppComponent" 
+		
+			
+			import { bootstrapApplication } from '@angular/platform-browser';
+			import { appConfig } from './app/app.config';
+			import { AppComponent } from './app/app.component';
+			
+			bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));
+			
+			
+	- [styles.css] File  :
+	-----------------------------------
+	
+		Tun global css styles buraya eklenir...
+		Buraya eklenen tum style lar tum component ve tum directive leri etkiler..
+		Bununla birlikte her component in kndine ait css file i vardir. Ve oreya eklenen herhangi bir style sadece o component i etkiler.
+		
+		
+		
+
+- Bootstrapping Angular Application   :
+=========================================================
+
+	Bootstraping is the process of initializing or loading Angular application...
+	
+	Every web application needs a starting point, "index.html" first page is the first page of the angular app. 
+	
+	-	[ng serve] komutu ile angular application build olur ve calisir. Bu komut projemizi compile eder ve bazi paketler olusturur. 
+					Son olarak olusturdugu bu "bundle" yani paketleri "index.html" file icerisine inject eder.
+					Bu angular application unun compile edilmesi sonucunda olusan "bundles" (paketler) i angular projemizden goruntuleyemeyiz.
+					Bundles lari goruntuleyebilmemiz icin projemizi build etmemiz gerekir.
+					Tam burada yeni bir CLI komutu devreye girer
+		[ng build]	bu satirim calistirdigimizda projemiz build edilir.	Bu komutun calistirilmasi ile build edilen file lari goruntuleyebilriz..	
+		Bu islemi asagidaki gibi yapabiliriz...
+		Ornek kod parcasi asagidadir.
+		
+				PS C:\VS_Code_Source_Folder\angular-complete-course-16\angular-ecart> ng build
+				Initial chunk files   | Names         |  Raw size | Estimated transfer size
+				main-2S4XX3P5.js      | main          | 187.16 kB |                49.95 kB (Applicasyonumuza ait derlenmis kodlar)
+				polyfills-6EAL64PA.js | polyfills     |  33.43 kB |                10.87 kB (Modern olmayan browserlarin applikasyonumuzu goruntuleyebilmesi icin olusturulur)
+				styles-5INURTSO.css   | styles        |   0 bytes |                 0 bytes
+
+									  | Initial total | 220.59 kB |                60.82 kB
+
+				Output location: C:\VS_Code_Source_Folder\angular-complete-course-16\angular-ecart\dist\angular-ecart
+
+				Application bundle generation complete. [7.084 seconds]
+		
+		Bu islem sonucunda angular applicationumnuzda "dist" diyeyeni bir folder olusturulur . 
+		
+		
+		Ancak compiled application diskte bir yere save edilmez...
+		Bunun yerine RAM de bir yere compiled application kaydedilir ve development server calistirilir...
+		[ng serve] ayrica projemizi izler .. Applikasyonumuzda herhangi bir degisiklik yaptigimizda, projemizi recompile eder ve file larimizi update eder.
+		Compiled applicationu goruntulemek icin angular projemizi build etmemiz gerekiyor.
+	
+	
+	
+	- Angular needs to locate the main entry point.
+	  Soru ise burada su ....
+	  Angular, Angular applicationun entry point inin ne veya hangi file oldugunu nasil bilecek veya nereden bilecek veya anlayacak...
+	  Bunun icin "angular.json" file search edilir..
+	  
+	  
+	  Asagidaki gibi [angular.json] file in icinde browser degiskeninin degeri angular in entry point idir.Bu durumda "main.ts" file main entry point dir.
+	  
+	  
+		[angular.json]--------------------------------------------------
+			 "build": {
+			  "builder": "@angular-devkit/build-angular:application",
+			  "options": {
+				"outputPath": "dist/angular-ecart",
+				"index": "src/index.html",
+				"browser": "src/main.ts", ------------------>>>>>>>>  (Burasi main entry point )
+				"polyfills": [
+				  "zone.js"
+				],
+				"tsConfig": "tsconfig.app.json",
+				"assets": [
+				  "src/favicon.ico",
+				  "src/assets"
+				],
+				"styles": [
+				  "src/styles.css"
+				],
+				"scripts": []
+			  },
+			  
+			  
+		[main.ts]----------------------------------------------------
+			import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';  -----> Angular app in desktop browserde calismasini saglar.
+			import { AppModule } from './app/app.module';		---> "AppModule" class is the root module class our application.
+																---> Angular application are orginzed as modules. Every application built must have atlist one module 
+																---> Application ilk calistirildiginda call edilen module "Root Module" denir.
+			platformBrowserDynamic().bootstrapModule(AppModule)
+				.catch(err => console.error(err));
+	  
+	  
+	  
+	  
+		[AppModule.ts]-----------------------------------------------
+		
+			import { NgModule } from '@angular/core';
+			import { BrowserModule } from '@angular/platform-browser';
+			import { AppRoutingModule } from './app-routing.module';
+			import { AppComponent } from './app.component';
+
+			@NgModule({
+			  declarations: [
+				AppComponent	------>    The set of components, directives, and pipes (declarables) that belong to this module.
+			  ],
+			  imports: [
+				BrowserModule,		-----> We need to list all the external modules which is requiered for this angular application
+				AppRoutingModule
+			  ],
+			  providers: [],		------>  we register all our services of our angular application 
+			  bootstrap: [AppComponent]		------> The set of components that are bootstrapped when this module is bootstrapped. 
+													Component must be part of this modules
+			})
+			export class AppModule { }
+	
+	
+	
+	
+	
+	
+																	Angular Project 
+																	================
+																		  |
+																		  |
+																		  V
+																	 [index.html]
+																	--------------
+																		  |
+																		  |
+																		  V
+																	[angular.json]
+																	---------------
+																		  |
+																		  |
+																		  V
+																	  [main.ts]
+																	---------------
+																		  |
+																		  |
+																		  V
+																	[AppModule.ts]
+																	---------------
+																		  |
+																		  |
+																		  V
+																	[AppComponent.ts]
+																	------------------
+																		  |
+																		  |
+																		  V
+																	[app.component.html]
+																		View Template
+																	---------------------
+		
+		
+		
+		
+What is a Component | Angular Components & Directives| (Video 7)	:
+==============================================================================================
+	Her angular projesi en az bir component icermek zorundadir. Buna app-component denir. App-component te bir angular projesindeki temel 
+	component de diyebiliriz...
+	
+	- Bir Component Nasil Create Edilir :
+	-------------------------------------------
+	
+		1- Create a typescript class & export it.
+		2- Decorate the class with @Component decorator
+		3- Declare the class in main module file...
+		
+		
+		Angular projesinde "app" folder vardir. Bu folder "main application source foder" dir. 
+		Bu folder icerisinde app-component bulunur bu ayni zamanda bizim root-component imizdir.
+		Bu component ayni zamanda bizim "parent component" imizdir.
+		
+		Diyelimki bir "header component" e ihtiyacimiz var.
+		Bu durumda bu yeni component bir child component olacaktir ve (app-component in child component i) header component in icerisinden
+		ulasilacaktir.
+		Ve bu child component e ait folder "app" isimli component in hiyerarsik olarak altinda yer alacaktir...
+		
+		
+				[app folder]
+					  |
+					  |--[header folder]
+					  
+		Bu header folder icerisinde, header component imizi olusturacagiz
+		
+		Hemen burada angular name convention dan bahsedelim. Header component olustururken asagidaki gibi isimlendirme yapiyoruz...
+		
+				[folderin ismi]+[.]+[file in turu(compoment veya module gibi)].[file uzantisi (ts, css veya html gibi)]
+				
+				[header.componen.ts]
+		
+		Daha sonra [header.componen.ts] file imizin icerine giderek ilgili kodumuzu yazabiliriz.
+		Burada "header" class imizi yazmak zorundayiz.
+		Burada yine isimlendirme convention devreye giriyor.
+		
+				[class][ ][Folder ismi][Component/Module]{}
+				
+				class HeaderComponent{}     ------------->  simple typescrit class
+				
+		Bir class in component olabilmesi icin "@Component" decorator ile decorate edilmesi gereklidir.
+		
+		
+				import { Component } from "@angular/core";
+				@Component({
+					selector:"app-header",               // isimlendirme kurali 
+					template:"<h3>eKart</h3>"            // burada template yerine "templateUrl" de kullana bilirdik... 
+														 // "template" kismina "view template of a component" denir
+				})
+				export class HeaderComponent{}
+	
+		Bu asamada angular app imizin yeni olusturdugumuz "HeaderComponent" den haberi yok.
+		Onu haberdar etmek icin "AppModule" class imiza gidiyoruz..
+		
+				
+		
+				import { NgModule } from '@angular/core';
+				import { BrowserModule } from '@angular/platform-browser';
+				import { AppRoutingModule } from './app-routing.module';
+				import { AppComponent } from './app.component';
+				import { HeaderComponent } from './header/header.component';
+
+				@NgModule({
+				  declarations: [
+					AppComponent,   //The set of components, directives, and pipes (declarables) that belong to this module.
+					HeaderComponent		// ----> HeaderComponent class imizi deklere ettik
+				  ],
+				  imports: [
+					BrowserModule,
+					AppRoutingModule,
+				  ],
+				  providers: [],
+				  bootstrap: [AppComponent]
+				})
+				export class AppModule { }
+				
+				
+		Iste simdi AppComponent imize ait olan "app.component.html" file icerisinde "HeaderComponent" i kullana biliriz...
+				
+
+
+		
+		
+
+View Template of Component (Video 8)
+============================================
+
+
+	-"Bir component te "template" kismina "view template of a component" denir
+	-"view template of a component" is form of a html
+	
+	
+
+Styling View Template   (Video 9)	
+==============================================
+
+	- Bir component icerisinde tanimlanan "*.css" file sadece o component e etki eder. Child componentlerine de etki etmez...
+	
+	
+	
+		import { Component } from "@angular/core";
+		@Component({
+			selector:"app-header",               // isimlendirme kurali
+			// template:"<h3>eKart</h3>"            // burada template yerine "templateUrl" de kullana bilirdik...
+			templateUrl: "./header.component.html",
+			styleUrls:['./header.component.css']    // birden fazla *.css file tanimlana bilir. Virgul ile ayirarak
+		})
+		export class HeaderComponent{
+		}
+		
+		
+Adding CSS Styles Globally  (Video 10)  
+==============================================
+
+	- Projemizde "styles.css" file bulunur,.
+	- You can add global styles to this file, and also import other style files
+	
+	
+	
+Using Bootstrap for Styling   :
+======================================
+	- Dikkat bu egitimde bootstrap in v5.2.3 (https://getbootstrap.com/) versiyonu kullaniliyor.
+	  Yuklemek icin komut satirindan project directory tye gidilerek asagidaki komut calistirilabilir.
+	  
+			[	/>npm install bootstrap@5.2.3	]
+
+	- Bootstrap i projemizde kullanabilmek icin oncelikle bootstrap i projemize install etmemiz gerekiyor.
+	
+	- Bir terminal acarak, projemizin konumlandigi directory den asagidaki komutu yaziyoruz...
+	
+			[  />npm install --save bootstrap ] ....................  (latest versiyonunu yukler)
+			[  />npm i --save bootstrap ] ..........................  (latest versiyonunu yukler)
+		Eger bootstarp in spesifik 	bir versiyonunu yuklemek istiyorsak
+			[  />npm i --save bootstrap@3 ]
+		Seklinde komutu yazabiliriz...
+		
+
+	- Projemizde yuklu olan modulleri "node_modules" folderinden goruntuleyebiliriz...
+	
+	- Biz projemizde "bootstarp.min.css" file ini kullanacagiz.
+	  Bu file projemizde asagidaki directory de bulunur....
+	  
+		[node_modules/bootstrap/dist/css/bootstarp.min.css]
+		
+	- "bootstarp.min.css" file i projemizde kullanabilmek icin 2 yol var...
+	
+		=> 1. YOL :
+		--------------
+			- "bootstarp.min.css" file imizi  "angular.json" dosyasinin icerisine tanimlamak...
+			  Asagida "angular.json" dosyasindan "bootstarp.min.css" file imizin icerisine tanimlandigi bir kesiti var.
+			  
+			  
+				"options": {
+					"outputPath": "dist/angular-ecart",
+					"index": "src/index.html",
+					"browser": "src/main.ts",
+					"polyfills": [
+					  "zone.js"
+					],
+					"tsConfig": "tsconfig.app.json",
+					"assets": [
+					  "src/favicon.ico",
+					  "src/assets"
+					],
+					"styles": [
+					  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+					  "src/styles.css"
+					],
+					"scripts": []
+				},
+			
+		
+		
+		=> 2. YOL :
+		--------------
+		
+			- Ikinci yol ise "styles.css" dosyasina giderek import etmek... Asagidaki gibi...
+			
+			
+				/* You can add global styles to this file, and also import other style files */
+				@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+				@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
+				@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css');
+				@import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+
+				*{
+					margin: 0px;
+					padding: 0px;
+					box-sizing: border-box;
+				}
+
+				body{
+					font-family: 'Montserrat',sans-serif;
+				}
+	
+		
+	- Buraya kadar hersey tamam ...
+	  peki nasil bootstarap i kullanacagiz..
+	  "https://getbootstrap.com/" sitesine gidiyoruz.
+	  Buradan en ustte "Docs" linkine tikliyoruz.
+	  Components ler altinda "Buttons" lari seciyoruz 
+	  Mesela burada aldigimiz asagidaki kod parcasini projemizde herhangi bir "*.html" dosyasina ekliyoruz.
+	  
+			[<button type="button" class="btn btn-danger">Danger</button>]
+		
+	  Herseyi save edip. Projemizi tekrar build etmeyi ihmal etmiyoruz...
+	  
+			[ng build]
+			
+	  Daha sonra projemizi calistiriyoruz
+	  
+			[ng serve]
+			
+	  Ve evet hersey calisir hale geldi...	
+	  
+	- Ancak kursun anlaticisi "bootstarap" i projesinde kullanmayacagini soyledi .
+	  Bu nedenle "bootstarap" i projeden uninstall etti .
+	  Asagidaki komut satirini calistirarak...
+	  
+			[npm uninstal bootstarap]
+			
+	  Burada dikkat edilecek bir husus sudur.
+	  Bootstrap uninstall edildikten sonra "angular.json" file ina deklere ettigimiz "bootstarap.min.css" file in yolu hala duruyor.
+	  Applikasyon bu dakikadan sonra bu file i yerinde bulamayacagi icin hata verecektir.
+	  
+	  
+
+
+Create Component using Angular CLI    :	  
+===================================================
+
+	- Bunu asagidaki CLI command ile yapabiliriz.
+		[ :/>ng generate component component-name ]
+		
+		Bu CLI command in kisa yazilisi asagidaki gibidir...
+		
+			[ :/>ng g c component-name ]
+		
+		Bu CLI Command ne yapacak sirasiyla.
+		
+		1-Creates component class with decorated "@Component" decorator.
+		2-Generates the view template and stylesheet for that component
+		3-Register the component class in the main module
+	  
+		
+		
+Types of Component Selector (Ders 13)   :
+===========================================
+
+	Component class larinda decorator kisminda "selector" diye bir attribute vardi hatirlarsiniz...
+	
+	
+		import { Component } from '@angular/core';
+		@Component({
+		  selector: 'main-menu',
+		  templateUrl: './main-menu.component.html',
+		  styleUrl: './main-menu.component.css'
+		})
+		export class MainMenuComponent {	}
+		
+		
+		Bu component selector yapisina gore html file icerisinde bu component asagidaki gibi bir html tag olarak kullanilmak zorundadir...
+		
+			<main-menu/>
+		
+	
+		Ancak selector tanimlamasi asagidaki sekilde olursa 
+		
+			selector: '[main-menu]'
+			
+			Bu durumda bu component html file icerisinde asagidaki gibi kullanilmak zorundadir...
+		
+				<div main-menu/>
+			
+		Bununla birlikte selecto ranimlamasi asagidaki gibi olursa
+		
+			selector: '.main-menu' 
+			
+			Bu durumda bu component html file icerisinde asagidaki gibi kullanilmak zorundadir...
+			
+				<div class='main-menu' />
+			
+		
+		HTML Tag   			=====>  selector: 'main-menu'     ===HTML File Icerisinde Kullanim====>	  <main-menu/>
+		HTML attribute		=====>  selector: '[main-menu]'   ===HTML File Icerisinde Kullanim====>	  <div main-menu />        Not : Angular Directive lerde kullanilir
+		CSS Class			=====>  selector: '.main-menu'    ===HTML File Icerisinde Kullanim====>	  <div class="main-menu" />		
+		HTML Tag id			=====>  selector: '#main-menu'    ===HTML File Icerisinde Kullanim====>	  <div id="main-menu"/> 
+
+		  
+		  
+		  
+ What is Data Binding  (Ders 14)	:
+ =============================================
+ 
+	- Data Binding deyince aklimiza Component class ile View Template arasinda communicate islemi gelmeli...
+	
+	
+										Data Binding
+			[Component Class]   <---------------------------->   [View Template]
+			
+			
+				Datanin  :   [Component Class]   ------------>   [View Template]   akmasi islemine "Data Binding" denir.
+			
+			Veya tam tersi  
+			
+				Datanin  :   [View Template]     ------------>   [Component Class]   akmasi islemine "Data Binding" denir.
+				
+			
+			
+			
+			
+	
+	- Data Binding Types   :
+	----------------------------
+	
+		1-One Way Data Binding  :   One-way data binding is when, data can be access from component into its corresponding view or vice versa
+		-------------------------
+									
+									ikiye ayrilir....
+									
+										A- "Component class" to "View Template"
+										-----------------------------------------------
+										
+															Data Flow From component to view template
+											[Component] ------------------------------------------------> [View Template]	(Data Flows from component to its view template)
+															String Interpolation :  {{data}}
+															Property Binding	 :  [property] = data
+										
+										
+										
+										
+										
+										
+										B- "View Template"   to "Component Class"
+										------------------------------------------------
+										
+															Data Flow From view template to component
+											[Component] <------------------------------------------------ [View Template]	(Data Flows from view template to component)
+															Event Binding : (data)="expression"
+											
+					
+		
+		2-Two Way Data Binding  :   Two-way data binding binds data from component class to view template and 
+		-------------------------   view template to component class. 
+									It is combination of property binding&event binding.
+		
+										
+										
+										
+																																Data flows from component to its view template & at the same time, 				
+															Iki yonlu data akisi olur asagidaki gibi..							from view template to component class
+											Component   <------------------------------------------------->  View Template
+																		[ngModel]
+		
+		
+									Buradaki cok onemli ve ilginc nokta sudur... 
+											Eger view template de bir seyler degisirse ayni anda component class a etki eder.
+											Veya tam tersi olarak..
+											Eger component class da birseyler degisirse ayni anda view template e etki eder.
+											
+											COK ILGINC
+											
+			
+		
+	
+String Interpolation  (Ders 15)  :
+==========================================
+
+	String interpolation ile asagidaki ornekte goruldugu gibi seyleri yapabilriz.
+	
+	- 
+	
+		[product-list.component.ts]
+	
+			import { Component } from '@angular/core';
+			@Component({
+			  selector: 'product-list',
+			  templateUrl: './product-list.component.html',
+			  styleUrl: './product-list.component.css'
+			})
+			export class ProductListComponent {
+			  product ={
+				name  : "IPhone 13",
+				price : 789,
+				color : "Red",
+				discount: 8.5,
+				inStock: 5
+			  }
+			  public getDiscountedPrice(){
+				return this.product.price-(this.product.price*this.product.discount/100);
+			  }
+			}
+
+		[product-list.component.html]
+
+			<p>Name : {{product.name}}</p>
+			<p>Price : {{'$'+product.price}}</p>
+			<p>Color : {{product.color}}</p>
+			<!-- <p>Discounted : ${{product.price-(product.price*product.discount/100)}}</p> -->
+			<p>Discounted : ${{getDiscountedPrice().toFixed(2)  }}</p>
+			<p>Stock : {{product.inStock > 0 ? 'Only '+product.inStock+' items left':' Not in Stock' }}</p>
+
+				
+				
+		
+		  
+		  
+ Property Binding (Ders 16)	 :
+===========================================
+
+	Property Binding de data, "string Interpolation" gibi "ONE_WAY_DATA_BINDING" dir.
+	Bu yontemle data ;
+	
+		Component Class tan "View Template" ye pass edilir.
+		
+		
+	- "String Interpolation" ve "Property Binding" Arasindaki fark ,
+	
+		Interpolation is used to just display a pice of data in HTML, such as displaying title or a name.
+		"Property Binding" lets us bind a property of a DOM object, for example the hidden property, to some data value.
+		This can let us show or hide a DOM element,or manipulate the DOM in some other way
+			
+			
+		
+			
+	- Nasil Kullanirim : Temel olarak cift tirnaklar arasina herhangi bir typescrict expression yazilabilir...
+	
+			
+		
+			Component class :
+			
+				export class ProductListComponent {
+				  product ={
+					name  : "IPhone 13",
+					price : 789,
+					color : "Red",
+					discount: 8.5,
+					inStock: 5,
+					pImage: '/assets/images/germany.jpg'
+				  }
+				}	
+
+			
+			View Template (Bu ornekte iki sekilde yapilabilir):
+			
+				<img [src]="product.pImage" />     ----------------------> Property Binding (Double quotes icerisinde any typescript expression yazilabilir)
+				<img src={{product.pImage}} /> 	   ----------------------> String Interpolation
+				
+	
+	
+		Ikiside calisir.
+		
+	- Burada hemenakla su soru gelebilir. 
+		HTML DOM elementlerin property lerinde "String Interpolation" kullanabiliyorsak neden "Propery Binding" kullanalim
+		
+		We can not use "String Interpolation" for all types of html attribute 
+		
+		Disabled, 
+		Hidden, 
+		Checked attribute larda "String Interpolation" calismayacaktir. Buralarda "Property Binding" kullanmak zorundayiz.
+		When you want to assign soem dymanic value an html attribute there we use property binding.
+		
+		
+	- Property Binding de bilindigi gibi en basit haliyle asagidaki gibi yapiliyordu...
+	
+			<input [value] = "name" />
+		
+		Burada dikkat edersek DOM elementin attribute unu cevrelemek icin koseli parantez kullandik.
+		Bunun yerine asagidaki gibi bir kullanimda mumkundur. Property Binding icin...
+		
+			<input bind-value = "name" />
+			
+	- Attribute Binding & Property Binding    :
+	-----------------------------------------------
+		Property Binding den kucuk bir kullanim farkliligiylar "Attribute Binding" de vardir.
+		
+		
+		Attribute represent the initial valu that it can not change
+		Property represent the current value and it can changed.
+		
+		
+		<input [value] = "name"  [attr.aria-hidden]=""/>
+		
+		Yukarida "aria-hidden" bir property degil ama bir attribute dur.
+		Binding islemi ise 	asagidaki sekilde yapilir...
+		
+			[attr.aria-hidden]=""
