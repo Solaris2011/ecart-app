@@ -1,5 +1,5 @@
 STATE : 
-	14. video ya geldik
+	18. video ya geldik
 
 
 Sozluk :
@@ -1178,3 +1178,58 @@ String Interpolation  (Ders 15)  :
 		Binding islemi ise 	asagidaki sekilde yapilir...
 		
 			[attr.aria-hidden]=""
+			
+			
+
+
+Event Binding (Ders 17)     :
+=================================
+
+	- Bind data from the "View Template" to "Component Class"
+	
+			
+			Component Class   <----------------------  View Template
+			
+	  Sadece "Event Binding" yoluyla view template den Component Class a data aktarimi yapabiliriz.
+	  
+	 
+	- Burada ok onemli bir sey soylemek istiyoruz.
+	  Mesela asagidaki gibi bir text kutucuguna her ne zaman bir herhangi bir karekter yazdigimizda "INPUT" event meydana gelir...
+	  Ve INPUT_EVENT_OBJECT i emit(yayar) eder..
+	  Bu INPUT_EVENT_OBJECT e erisebilmek icin "$event" variable kullanilir
+							
+							   Simgesi View Template Icerisinde
+	  INPUT_EVENT_OBJECT   ---------------------------------------> $event
+	  
+		 <input (input)="onChangedEvent($event)" />    ----->    Event Binding isleminde HTML element e ait event parantezler arasina alinir "(input)" gibi.
+		 
+		 
+		Component class kisminda "onChangedEvent()" methodu yazilmalidir. Karsilamak icin asagidaki gibi...
+		
+		
+			import { Component } from '@angular/core';
+			@Component({
+			  selector: 'product-list',
+			  templateUrl: './product-list.component.html',
+			  styleUrl: './product-list.component.css'
+			})
+			export class ProductListComponent {
+			
+			  public name:string = "Jhon Doe3";
+			  
+			  onChangedEvent(eventObject:any){
+				this.name = eventObject.target.value;
+			  }
+			}
+			
+
+		Burada "eventObject" objesinin icerisinde "target" diye bir property var ve "target" property sinin icerisinde "value" diye bir property vardir.
+		
+		
+				eventObject
+				------------
+					|
+					|-----> target 
+							------
+							  |
+							  |--------> value
